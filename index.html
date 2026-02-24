@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daily Motivation 🌸</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Quicksand:wght@500&display=swap" rel="stylesheet">
+    
+    <style>
+        /* The main background */
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-image: url('https://images.unsplash.com/photo-1490750967868-8f52a0b2e2ce?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
+            background-size: cover;
+            background-position: center;
+            overflow: hidden; /* This stops the page from scrolling when items float up */
+        }
+
+        /* The central quote box */
+        .quote-container {
+            background-color: rgba(255, 255, 255, 0.85);
+            padding: 50px;
+            border-radius: 25px;
+            text-align: center;
+            max-width: 500px;
+            border: 3px solid #ffb6c1;
+            box-shadow: 0 10px 30px rgba(255, 182, 193, 0.6);
+            position: relative;
+            z-index: 10; /* This keeps the box ON TOP of the floating items */
+        }
+
+        h1 {
+            font-family: 'Dancing Script', cursive;
+            color: #d85a7fff;
+            font-size: 3.5rem;
+            margin: 0;
+        }
+
+        p {
+            font-family: 'Quicksand', sans-serif;
+            color: #666;
+            font-size: 1.2rem;
+            margin-top: 15px;
+        }
+
+        /* --- NEW: Watermark Style --- */
+        .watermark {
+            position: fixed;
+            bottom: 15px;
+            right: 20px;
+            font-family: 'Quicksand', sans-serif;
+            color: black;
+            font-size: 1rem;
+            font-weight: bold;
+            text-shadow: 1px 1px 4px #d85a7f; /* Gives it a glowing pink outline to stand out */
+            opacity: 0.8;
+            z-index: 20;
+        }
+
+        /* --- NEW: Floating Items Style --- */
+        .floating-item {
+            position: fixed;
+            bottom: -50px; /* Starts just below the screen */
+            z-index: 1; /* Keeps them behind the main quote box */
+            pointer-events: none; /* Makes sure you can't accidentally click them */
+            animation: floatUp linear forwards; /* The animation instructions */
+        }
+
+        /* This is the animation that makes them float to the top */
+        @keyframes floatUp {
+            0% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-120vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+        /* --- NEW: Mobile Phone Magic --- */
+        @media (max-width: 600px) {
+            .quote-container {
+                width: 75%; /* Shrinks the box slightly */
+                padding: 30px; /* Reduces the inner space */
+            }
+            h1 {
+                font-size: 2.5rem; /* Makes the main quote smaller */
+            }
+            p {
+                font-size: 1rem; /* Makes the sub-text smaller */
+            }
+            .watermark {
+                font-size: 0.8rem; /* Makes your watermark fit better */
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="quote-container">
+        <h1>"Keep growing, darling."</h1>
+        <p>You are capable of blooming into beautiful things today.</p>
+        <div class="decorations">✨ 🌸 🎀 🌸 ✨</div>
+    </div>
+
+    <div class="watermark">
+        🎀Created by Squeezshan🎀
+    </div>
+
+    <script>
+        // Array of cute things to float
+        const cuteThings = ['🎀', '💖', '🌸', '✨', '💕', '🧸', '🦋', '💗'];
+
+        function createFloatingItem() {
+            // 1. Create a new invisible box (div)
+            const item = document.createElement('div');
+            item.classList.add('floating-item');
+
+            // 2. Pick a random cute emoji from our list
+            item.innerText = cuteThings[Math.floor(Math.random() * cuteThings.length)];
+
+            // 3. Randomize where it starts on the screen (left to right)
+            item.style.left = Math.random() * 100 + 'vw';
+
+            // 4. Randomize the size so some are big and some are small
+            item.style.fontSize = (Math.random() * 20 + 15) + 'px';
+
+            // 5. Randomize how fast it floats to the top (between 5 and 10 seconds)
+            const duration = Math.random() * 5 + 5;
+            item.style.animationDuration = duration + 's';
+
+            // 6. Put it on the screen!
+            document.body.appendChild(item);
+
+            // 7. Clean up: Remove it after it reaches the top so the computer doesn't lag
+            setTimeout(() => {
+                item.remove();
+            }, duration * 1000);
+        }
+
+        // Create a new floating item every 400 milliseconds!
+        setInterval(createFloatingItem, 400);
+    </script>
+
+</body>
+</html>
