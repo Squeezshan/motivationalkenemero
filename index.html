@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Daily Motivation 🌸</title>
+    <title>Quotes for You</title>
     
-    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Quicksand:wght@500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Quicksand:wght@500&family=Fredoka:wght@500&display=swap" rel="stylesheet">
     
     <style>
-        /* The main background */
+       
         body {
             margin: 0;
             padding: 0;
@@ -19,10 +19,17 @@
             background-image: url('https://images.unsplash.com/photo-1490750967868-8f52a0b2e2ce?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
             background-size: cover;
             background-position: center;
-            overflow: hidden; /* This stops the page from scrolling when items float up */
+            overflow: hidden; 
+            font-family: 'Quicksand', sans-serif;
         }
 
-        /* The central quote box */
+        .main-wrapper {
+            display: grid;
+            justify-items: center;
+            position: relative;
+            z-index: 10; 
+        }
+
         .quote-container {
             background-color: rgba(255, 255, 255, 0.85);
             padding: 50px;
@@ -31,8 +38,7 @@
             max-width: 500px;
             border: 3px solid #ffb6c1;
             box-shadow: 0 10px 30px rgba(255, 182, 193, 0.6);
-            position: relative;
-            z-index: 10; /* This keeps the box ON TOP of the floating items */
+            margin-top: -10px;
         }
 
         h1 {
@@ -43,109 +49,185 @@
         }
 
         p {
-            font-family: 'Quicksand', sans-serif;
             color: #666;
             font-size: 1.2rem;
             margin-top: 15px;
         }
 
-        /* --- NEW: Watermark Style --- */
-        .watermark {
-            position: fixed;
-            bottom: 15px;
-            right: 20px;
-            font-family: 'Quicksand', sans-serif;
-            color: black;
-            font-size: 1rem;
-            font-weight: bold;
-            text-shadow: 1px 1px 4px #d85a7f; /* Gives it a glowing pink outline to stand out */
-            opacity: 0.8;
-            z-index: 20;
+        .decorations {
+            margin-top: 15px;
         }
 
-        /* --- NEW: Floating Items Style --- */
+ 
+        .bear-character {
+            font-size: 80px;
+            position: relative;
+            line-height: 1;
+            margin-bottom: -15px;
+            z-index: 11;
+        }
+
+        .bear-character::before {
+            content: '💖';
+            font-size: 30px;
+            position: absolute;
+            bottom: 10px;
+            left: 5px;
+            transform: rotate(-15deg);
+        }
+
+    
+        .thought-bubble {
+            position: absolute;
+            background: white;
+            border: 3px solid #ffb6c1;
+            border-radius: 50px;
+            padding: 10px 20px;
+            font-family: 'Fredoka', sans-serif;
+            color: #d85a7f;
+            font-size: 1.2rem;
+            top: -50px;
+            right: -90px;
+            box-shadow: 0 5px 15px rgba(255, 182, 193, 0.4);
+            z-index: 12;
+        }
+
+        .thought-bubble::after, .thought-bubble::before {
+            content: '';
+            position: absolute;
+            background: white;
+            border: 3px solid #ffb6c1;
+            border-radius: 50%;
+        }
+
+        .thought-bubble::after { width: 15px; height: 15px; bottom: -15px; left: 20px; }
+        .thought-bubble::before { width: 8px; height: 8px; bottom: -22px; left: 10px; }
+
+
         .floating-item {
             position: fixed;
-            bottom: -50px; /* Starts just below the screen */
-            z-index: 1; /* Keeps them behind the main quote box */
-            pointer-events: none; /* Makes sure you can't accidentally click them */
-            animation: floatUp linear forwards; /* The animation instructions */
+            bottom: -50px;
+            z-index: 1;
+            pointer-events: none;
+            animation: floatUp linear forwards;
         }
 
-        /* This is the animation that makes them float to the top */
         @keyframes floatUp {
-            0% {
-                transform: translateY(0) rotate(0deg);
-                opacity: 1;
-            }
-            100% {
-                transform: translateY(-120vh) rotate(360deg);
-                opacity: 0;
-            }
+            0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(-120vh) rotate(360deg); opacity: 0; }
         }
-        /* --- NEW: Mobile Phone Magic --- */
+
+        
+        .peek-bear {
+            position: fixed;
+            top: 55%; 
+            transform: translateY(-50%);
+            font-size: 140px; 
+            z-index: 12;
+            opacity: 0.95;
+            pointer-events: none;
+            line-height: 1;
+        }
+       
+
+        .peek-bear.left {
+            left: -250px; 
+            animation: peekLeft 5s ease-in-out infinite 3.5s; 
+        }
+
+        .peek-bear.right {
+            right: -250px; 
+            animation: peekRight 5s ease-in-out infinite 3.5s; 
+        }
+
+
+        @keyframes peekLeft {
+            0%, 100% { left: -150px; transform: translateY(-50%) rotate(20deg); } 
+            15%, 35% { left: -65px; transform: translateY(-50%) rotate(30deg); } 
+        }
+
+        @keyframes peekRight {
+            0%, 100% { right: -150px; transform: translateY(-50%) rotate(-20deg); } 
+            15%, 35% { right: -65px; transform: translateY(-50%) rotate(-30deg); } 
+        }
+
+        
         @media (max-width: 600px) {
-            .quote-container {
-                width: 75%; /* Shrinks the box slightly */
-                padding: 30px; /* Reduces the inner space */
-            }
-            h1 {
-                font-size: 2.5rem; /* Makes the main quote smaller */
-            }
-            p {
-                font-size: 1rem; /* Makes the sub-text smaller */
-            }
-            .watermark {
-                font-size: 0.8rem; /* Makes your watermark fit better */
-            }
+            .quote-container { width: 85%; padding: 30px; margin-top: -5px; }
+            h1 { font-size: 2.2rem; }
+            p { font-size: 1rem; }
+            .bear-character { font-size: 60px; }
+            .bear-pawn-wave { font-size: 30px; top: 15px; }
+            .thought-bubble { font-size: 1rem; top: -40px; right: -50px; padding: 5px 15px; }
+            .watermark { font-size: 0.8rem; }
+            .peek-bear { font-size: 100px; }
+            .edge-paw { font-size: 40px; top: 50px; }
+            .peek-bear.left { animation-name: peekLeftMobile; }
+            .peek-bear.right { animation-name: peekRightMobile; }
+        }
+
+        
+        @keyframes peekLeftMobile {
+            0%, 100% { left: -110px; transform: translateY(-50%) rotate(20deg); } 
+            15%, 35% { left: -65px; transform: translateY(-50%) rotate(30deg); } 
+        }
+        @keyframes peekRightMobile {
+            0%, 100% { right: -110px; transform: translateY(-50%) rotate(-20deg); } 
+            15%, 35% { right: -65px; transform: translateY(-50%) rotate(-30deg); } 
         }
     </style>
 </head>
 <body>
 
-    <div class="quote-container">
-        <h1>"Keep growing, darling."</h1>
-        <p>You are capable of blooming into beautiful things today.</p>
-        <div class="decorations">✨ 🌸 🎀 🌸 ✨</div>
+    <div class="peek-bear left">
+        🧸<span class="edge-paw"></span>
+    </div>
+    
+    <div class="peek-bear right">
+        <span class="edge-paw"></span>🧸
     </div>
 
-    <div class="watermark">
-        🎀Created by Squeezshan🎀
+    <div class="main-wrapper">
+        
+        <div class="bear-character">
+            🧸
+            
+            <div class="thought-bubble">
+                Padayon!
+            </div>
+        </div>
+
+        <div class="quote-container">
+            <h1>"Keep on striving, darling"</h1>
+            <p>"May your desire to chase your dreams always be stronger than your fear of trying."</p>
+            <div class="decorations">✨ 🌸 🎀 🌸 ✨</div>
+        </div>
     </div>
 
     <script>
-        // Array of cute things to float
         const cuteThings = ['🎀', '💖', '🌸', '✨', '💕', '🧸', '🦋', '💗'];
 
         function createFloatingItem() {
-            // 1. Create a new invisible box (div)
             const item = document.createElement('div');
             item.classList.add('floating-item');
-
-            // 2. Pick a random cute emoji from our list
             item.innerText = cuteThings[Math.floor(Math.random() * cuteThings.length)];
-
-            // 3. Randomize where it starts on the screen (left to right)
             item.style.left = Math.random() * 100 + 'vw';
-
-            // 4. Randomize the size so some are big and some are small
+            
+            const opacities = [0.4, 0.6, 0.8];
+            item.style.opacity = opacities[Math.floor(Math.random() * opacities.length)];
+            
             item.style.fontSize = (Math.random() * 20 + 15) + 'px';
-
-            // 5. Randomize how fast it floats to the top (between 5 and 10 seconds)
             const duration = Math.random() * 5 + 5;
             item.style.animationDuration = duration + 's';
 
-            // 6. Put it on the screen!
             document.body.appendChild(item);
 
-            // 7. Clean up: Remove it after it reaches the top so the computer doesn't lag
             setTimeout(() => {
                 item.remove();
             }, duration * 1000);
         }
 
-        // Create a new floating item every 400 milliseconds!
-        setInterval(createFloatingItem, 400);
+        setInterval(createFloatingItem, 500);
     </script>
 
 </body>
