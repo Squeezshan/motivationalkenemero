@@ -15,6 +15,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
+            background-image: url('https://images.unsplash.com/photo-1490750967868-8f52a0b2e2ce?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
             background-size: cover;
             background-position: center;
             overflow: hidden; 
@@ -38,7 +39,7 @@
             border: 3px solid #ffb6c1;
             box-shadow: 0 10px 30px rgba(255, 182, 193, 0.6);
             margin-top: -10px;
-            box-sizing: border-box;
+            box-sizing: border-box; 
             width: 100%;
         }
 
@@ -91,7 +92,7 @@
             right: -90px;
             box-shadow: 0 5px 15px rgba(255, 182, 193, 0.4);
             z-index: 12;
-            white-space: nowrap;
+            white-space: nowrap; 
         }
 
         .thought-bubble::after, .thought-bubble::before {
@@ -141,14 +142,14 @@
 
         @keyframes peekLeft {
             0%, 100% { left: -150px; transform: translateY(-50%) rotate(20deg); } 
-            15%, 35% { left: -65px; transform: translateY(-50%) rotate(-30deg); } 
+            15%, 35% { left: -65px; transform: translateY(-50%) rotate(30deg); } 
         }
 
         @keyframes peekRight {
-            /* Flipped degrees and added scaleX(-1) to mirror the bear */
             0%, 100% { right: -150px; transform: translateY(-50%) rotate(-20deg) scaleX(-1); } 
-            15%, 35% { right: -65px; transform: translateY(-50%) rotate(30deg) scaleX(-1); } 
+            15%, 35% { right: -65px; transform: translateY(-50%) rotate(-30deg) scaleX(-1); } 
         }
+
 
         @media (max-width: 600px) {
             .quote-container { 
@@ -168,19 +169,19 @@
             }
 
             .peek-bear { font-size: 80px; } 
+
             .peek-bear.left { animation-name: peekLeftMobile; }
             .peek-bear.right { animation-name: peekRightMobile; }
         }
 
         @keyframes peekLeftMobile {
             0%, 100% { left: -100px; transform: translateY(-50%) rotate(20deg); } 
-            /* Peek in less (-30px instead of -65px) so it doesn't cover the box */
-            15%, 35% { left: -30px; transform: translateY(-50%) rotate(-30deg); } 
+            15%, 35% { left: -30px; transform: translateY(-50%) rotate(30deg); } 
         }
         
         @keyframes peekRightMobile {
             0%, 100% { right: -100px; transform: translateY(-50%) rotate(-20deg) scaleX(-1); } 
-            15%, 35% { right: -30px; transform: translateY(-50%) rotate(30deg) scaleX(-1); } 
+            15%, 35% { right: -30px; transform: translateY(-50%) rotate(-30deg) scaleX(-1); } 
         }
     </style>
 </head>
