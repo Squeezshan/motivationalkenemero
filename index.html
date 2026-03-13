@@ -6,18 +6,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Quotes for You 🧸</title>
 
-    <!-- SEO Meta Tags -->
     <meta name="description"
         content="A cute bear shares motivational quotes to brighten your day. Keep striving, darling! Padayon! 🌸">
-
-    <!-- Open Graph Tags for Social Sharing -->
     <meta property="og:title" content="Quotes for You 🧸">
     <meta property="og:description" content="A cute bear shares motivational quotes to brighten your day. Padayon!">
     <meta property="og:type" content="website">
     <meta property="og:image"
         content="https://images.unsplash.com/photo-1490750967868-8f52a0b2e2ce?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80">
 
-    <!-- Favicon (bear emoji as SVG) -->
     <link rel="icon"
         href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧸</text></svg>">
 
@@ -26,7 +22,7 @@
         rel="stylesheet">
 
     <style>
-        /* ===== Design Tokens (CSS Custom Properties) ===== */
+
         :root {
             --pink-primary: #d85a7f;
             --pink-border: #ffb6c1;
@@ -42,7 +38,7 @@
             --font-accent: 'Fredoka', sans-serif;
         }
 
-        /* ===== Dark Mode ===== */
+
         @media (prefers-color-scheme: dark) {
             :root {
                 --pink-primary: #f48fb1;
@@ -57,7 +53,7 @@
             }
         }
 
-        /* ===== Dark Mode Toggle (manual) ===== */
+
         [data-theme="dark"] {
             --pink-primary: #f48fb1;
             --pink-border: #ad1457;
@@ -89,6 +85,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
+            position: relative;
             background: linear-gradient(135deg, var(--bg-gradient-start), var(--bg-gradient-end));
             background-image: url('https://images.unsplash.com/photo-1490750967868-8f52a0b2e2ce?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
             background-size: cover;
@@ -96,6 +93,26 @@
             overflow: hidden;
             font-family: var(--font-body);
             transition: background-color 0.5s ease;
+        }
+
+        body::after {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0);
+            pointer-events: none;
+            z-index: 0;
+            transition: background 0.5s ease;
+        }
+
+        [data-theme="dark"] body::after {
+            background: rgba(10, 5, 15, 0.65);
+        }
+
+        @media (prefers-color-scheme: dark) {
+            html:not([data-theme="light"]) body::after {
+                background: rgba(10, 5, 15, 0.65);
+            }
         }
 
         .theme-toggle {
@@ -553,24 +570,10 @@
                 setTimeout(() => heart.remove(), 1000);
             }
         }
-        const POOL_SIZE = 20;
-        const pool = [];
-        for (let i = 0; i < POOL_SIZE; i++) {
+        function createFloatingItem() {
             const item = document.createElement('div');
             item.classList.add('floating-item');
-            item.style.display = 'none';
-            document.body.appendChild(item);
-            pool.push({ el: item, inUse: false });
-        }
-
-        function launchFloatingItem() {
-            const available = pool.find(p => !p.inUse);
-            if (!available) return;
-
-            const item = available.el;
-            available.inUse = true;
-
-            item.textContent = cuteThings[Math.floor(Math.random() * cuteThings.length)];
+            item.innerText = cuteThings[Math.floor(Math.random() * cuteThings.length)];
             item.style.left = Math.random() * 100 + 'vw';
 
             const opacities = [0.4, 0.6, 0.8];
@@ -579,18 +582,15 @@
             item.style.fontSize = (Math.random() * 20 + 15) + 'px';
             const duration = Math.random() * 5 + 5;
             item.style.animationDuration = duration + 's';
-            item.style.display = '';
-            item.style.animation = 'none';
-            item.offsetHeight;
-            item.style.animation = '';
+
+            document.body.appendChild(item);
 
             setTimeout(() => {
-                item.style.display = 'none';
-                available.inUse = false;
+                item.remove();
             }, duration * 1000);
         }
 
-        setInterval(launchFloatingItem, 500);
+        setInterval(createFloatingItem, 500);
         const themeToggle = document.getElementById('themeToggle');
 
         function setTheme(theme) {
